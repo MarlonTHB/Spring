@@ -1,6 +1,7 @@
 package de.thbrandenburg.wib5;
 
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class Wib5Application {
+
+	@Autowired
+	TutorRepository repository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Wib5Application.class, args);
@@ -21,8 +25,10 @@ public class Wib5Application {
 	}
 	@GetMapping(path = "/test", produces = "application/json")
 	public String listTutors() {
-		Tutor tutor = new Tutor(3, "Florian", new String[]{"Englisch", "Mathe"});
+		Tutor tutor = new Tutor("Florian", "Englisch");
+		repository.save(tutor);
 		Gson gson = new Gson();
 		return gson.toJson(tutor);
 	}
+
 }
