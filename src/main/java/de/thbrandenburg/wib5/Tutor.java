@@ -1,8 +1,10 @@
 package de.thbrandenburg.wib5;
-
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+
+import java.util.List;
 
 @Entity
 public class Tutor {
@@ -10,11 +12,8 @@ public class Tutor {
     @GeneratedValue
     Long id;
     String name;
-    String subject;
-    public Tutor(String name, String subject) {
-        this.name = name;
-        this.subject = subject;
-    }
+    @ElementCollection
+    List<String> subjects;
 
     public Tutor() {
 
